@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Trang chủ{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>TRANG CHỦ</h1>
+    <p>Tổng số sinh viên: <b>{{ tong_sv }}</b></p>
+    <p>Số lớp (không trùng): <b>{{ cac_lop }}</b> ({{ danh_sach_lop | join(', ') }})</p>
+    <hr style="border:none; border-top: 1px solid var(--border); margin: 1.5rem 0;">
+    <h3>MENU CHỨC NĂNG:</h3>
+    <ul>
+        <li><a href="{{ url_for('students') }}">1. Danh sách sinh viên (/students)</a></li>
+        <li><a href="{{ url_for('search') }}">2. Tìm kiếm an toàn (/search)</a></li>
+        <li><a href="{{ url_for('api_students') }}">3. API Sinh viên (/api/students)</a></li>
+    </ul>
+</div>
+{% endblock %}
