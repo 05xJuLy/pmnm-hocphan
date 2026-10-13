@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Quản Lý Sinh Viên{% endblock %}</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-weight: 600;
+        }
+        nav a:hover { color: var(--primary); }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { background-color: #f1f5f9; font-weight: 600; }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn:hover { background-color: var(--primary-hover); }
+        .filter-bar a {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            margin-right: 0.3rem;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .filter-bar a.active {
+            background: var(--primary);
+            color: white;
+        }
+        input[type="text"] {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 240px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="{{ url_for('trangchu') }}">Trang chủ</a>
+            <a href="{{ url_for('students') }}">Danh sách sinh viên</a>
+            <a href="{{ url_for('api_students') }}">API JSON</a>
+        </div>
+        <form action="{{ url_for('search') }}" method="GET" style="margin:0;">
+            <input type="text" name="q" placeholder="Tìm tên hoặc MSSV..." value="{{ search_query|default('') }}">
+            <button type="submit" class="btn">Tìm kiếm</button>
+        </form>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
