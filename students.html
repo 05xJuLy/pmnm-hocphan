@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Danh sách sinh viên{% endblock %}
+{% block content %}
+<div class="card">
+    {% if is_search %}
+        <h2>KẾT QUẢ TÌM KIẾM</h2>
+        <p>Tìm thấy <b>{{ students|length }}</b> kết quả cho từ khóa "<b>{{ search_query }}</b>":</p>
+    {% else %}
+        <h2>DANH SÁCH SINH VIÊN</h2>
+        <div class="filter-bar" style="margin-bottom: 1rem;">
+            <b>Thanh lọc theo lớp:</b> 
+            <a href="{{ url_for('students') }}" class="{% if not selected_lop %}active{% endif %}">Tất cả</a>
+            {% for c in classes %}
+                <a href="{{ url_for('students', lop=c) }}" class="{% if selected_lop == c %}active{% endif %}">{{ c }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if students %}
+    <table>
+        <thead>
+            <tr>
+                <th>MSSV</th>
+                <th>Họ tên</th>
+                <th>Lớp</th>
+                <th>Điểm TB</th>
+                <th>Xếp loại</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sv in students %}
+            <tr>
+                <td><a href="{{ url_for('student_detail', mssv=sv.masv) }}">{{ sv.masv }}</a></td>
+                <td>{{ sv.name }}</td>
+                <td>{{ sv.lop }}</td>
+                <td>{{ sv.dtb }}</td>
+                <td>{{ sv.xep_loai }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p style="color: red; text-align: center; margin-top: 1rem;"><b>Không có sinh viên phù hợp</b></p>
+    {% endif %}
+</div>
+{% endblock %}
